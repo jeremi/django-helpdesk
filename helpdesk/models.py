@@ -396,11 +396,9 @@ class Ticket(models.Model):
         from django.contrib.sites.models import Site
         from django.core.urlresolvers import reverse
         site = Site.objects.get_current()
-        return u"http://%s%s?ticket=%s&email=%s" % (
+        return u"http://%s%s" % (
             site.domain,
-            reverse('helpdesk_public_view'),
-            self.ticket_for_url,
-            self.submitter_email
+            reverse('customer_view_ticket', kwargs={"ticket_id": self.id}),
             )
     ticket_url = property(_get_ticket_url)
 
